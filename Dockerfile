@@ -1,4 +1,4 @@
-FROM fluent/fluentd:v1.10-1
+FROM fluent/fluentd:v1.11
 
 # Use root account to use apk
 USER root
@@ -12,6 +12,9 @@ RUN apk add --no-cache --update --virtual .build-deps \
  && sudo gem install fluent-plugin-multi-format-parser \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
+ && apk add --no-cache tzdata \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
+
+env TZ=Asia/Kuala_Lumpur
 
 USER fluent
